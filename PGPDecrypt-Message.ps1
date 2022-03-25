@@ -54,7 +54,7 @@ function PGPDecrypt-Message
                 $enc_data_list = @($list_data.GetEncryptedDataObjects()).Where({$_.GetType() -eq [Org.BouncyCastle.Bcpg.OpenPgp.PgpPublicKeyEncryptedData]})[0]
                 if($private_key_passphrase_secure)
                 {
-                    $decrypt_key = $secret_keys[$enc_data_list.KeyId].ExtractPrivateKey([System.Net.NetworkCredential]::new("",$private_key_passphrase).Password.ToCharArray())
+                    $decrypt_key = $secret_keys[$enc_data_list.KeyId].ExtractPrivateKey([System.Net.NetworkCredential]::new("",$private_key_passphrase_secure).Password.ToCharArray())
                 } else {
                     $decrypt_key = $secret_keys[$enc_data_list.KeyId].ExtractPrivateKey($private_key_passphrase.ToCharArray())
                 }
