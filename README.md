@@ -72,6 +72,7 @@ REMARKS
 ```
 
 ## Example
+*(private key is a throwaway)*
 ```ps1
 $dec = PGPDecrypt-Message -pgp_encrypted_message @"
 -----BEGIN PGP MESSAGE-----
