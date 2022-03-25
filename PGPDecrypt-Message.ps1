@@ -1,4 +1,4 @@
-function Decrypt-PGPEncryptedMessage
+function PGPDecrypt-Message
 {
     [cmdletbinding()]
     Param(
