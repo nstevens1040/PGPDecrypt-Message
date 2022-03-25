@@ -58,7 +58,6 @@ function PGPDecrypt-Message
                 } else {
                     $decrypt_key = $secret_keys[$enc_data_list.KeyId].ExtractPrivateKey($private_key_passphrase.ToCharArray())
                 }
-                $decrypt_key = $secret_keys[$enc_data_list.KeyId].ExtractPrivateKey($private_key_passphrase.ToCharArray())
                 $stream = $enc_data_list.GetDataStream($decrypt_key)
                 $stream_list.Add($stream)
                 $factory = [Org.BouncyCastle.Bcpg.OpenPgp.PgpObjectFactory]::new($stream)
