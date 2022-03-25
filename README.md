@@ -12,7 +12,64 @@ The first time you run **PGPDecrypt-Message** it will install BouncyCastle.NetFr
 iex (irm https://raw.githubusercontent.com/nstevens1040/PGPDecrypt-Message/main/PGPDecrypt-Message.ps1)
 ```  
 ## Usage
+```
 
+NAME
+    PGPDecrypt-Message
+    
+SYNTAX
+    PGPDecrypt-Message [-pgp_encrypted_message] <string> [-pgp_private_key] <string> [[-private_key_passphrase] <string>]  [<CommonParameters>]
+    
+    
+PARAMETERS
+    -pgp_encrypted_message <string>
+        
+        Required?                    true
+        Position?                    0
+        Accept pipeline input?       false
+        Parameter set name           (All)
+        Aliases                      None
+        Dynamic?                     false
+        
+    -pgp_private_key <string>
+        
+        Required?                    true
+        Position?                    1
+        Accept pipeline input?       false
+        Parameter set name           (All)
+        Aliases                      None
+        Dynamic?                     false
+        
+    -private_key_passphrase <string>
+        
+        Required?                    false
+        Position?                    2
+        Accept pipeline input?       false
+        Parameter set name           (All)
+        Aliases                      None
+        Dynamic?                     false
+        
+    <CommonParameters>
+        This cmdlet supports the common parameters: Verbose, Debug,
+        ErrorAction, ErrorVariable, WarningAction, WarningVariable,
+        OutBuffer, PipelineVariable, and OutVariable. For more information, see 
+        about_CommonParameters (http://go.microsoft.com/fwlink/?LinkID=113216). 
+    
+    
+INPUTS
+    None
+    
+    
+OUTPUTS
+    System.Object
+    
+ALIASES
+    None
+    
+
+REMARKS
+    None
+```
 
 ## Example
 ```ps1
