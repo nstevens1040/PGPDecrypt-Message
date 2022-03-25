@@ -16,6 +16,10 @@ function PGPDecrypt-Message
     }
     $dll = [IO.FileInfo]::New((get-package -Name BouncyCastle.NetFramework | % source)).Directory.EnumerateFiles("*.dll",[System.IO.SearchOption]::AllDirectories)[0].FullName
     Add-Type -Path $dll
+    if([string]::IsNullOrEmpty($private_key_passphrase))
+    {
+        $private_key_passphrase_secure = Read-Host -AsSecureString -Prompt "Please enter your passphrase: "
+    }
     $enc_stream = [System.IO.MemoryStream]::New([System.Text.Encoding]::ASCII.GetBytes($pgp_encrypted_message))
     $stream = [Org.BouncyCastle.Bcpg.OpenPgp.PgpUtilities]::GetDecoderStream($enc_stream)
     $stream_list = [system.Collections.Generic.List[System.IO.Stream]]::New()
@@ -48,6 +52,12 @@ function PGPDecrypt-Message
             if($list_data)
             {
                 $enc_data_list = @($list_data.GetEncryptedDataObjects()).Where({$_.GetType() -eq [Org.BouncyCastle.Bcpg.OpenPgp.PgpPublicKeyEncryptedData]})[0]
+                if($private_key_passphrase_secure)
+                {
+                    $decrypt_key = $secret_keys[$enc_data_list.KeyId].ExtractPrivateKey([System.Net.NetworkCredential]::new("",$private_key_passphrase).Password.ToCharArray())
+                } else {
+                    $decrypt_key = $secret_keys[$enc_data_list.KeyId].ExtractPrivateKey($private_key_passphrase.ToCharArray())
+                }
                 $decrypt_key = $secret_keys[$enc_data_list.KeyId].ExtractPrivateKey($private_key_passphrase.ToCharArray())
                 $stream = $enc_data_list.GetDataStream($decrypt_key)
                 $stream_list.Add($stream)
@@ -56,7 +66,7 @@ function PGPDecrypt-Message
             $data_object = $factory.NextPgpObject()
         }
         catch {
-            throw [Org.BouncyCastle.Bcpg.OpenPgp.PgpException]::new("failed to strip encapsulating data")
+            $_ | select *
         }
     }
     foreach ($stream_item in $stream_list)
