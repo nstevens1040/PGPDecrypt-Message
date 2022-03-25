@@ -18,7 +18,7 @@ function PGPDecrypt-Message
     Add-Type -Path $dll
     if([string]::IsNullOrEmpty($private_key_passphrase))
     {
-        $private_key_passphrase_secure = Read-Host -AsSecureString -Prompt "Please enter your passphrase: "
+        $private_key_passphrase_secure = Read-Host -AsSecureString -Prompt "Please enter your passphrase"
     }
     $enc_stream = [System.IO.MemoryStream]::New([System.Text.Encoding]::ASCII.GetBytes($pgp_encrypted_message))
     $stream = [Org.BouncyCastle.Bcpg.OpenPgp.PgpUtilities]::GetDecoderStream($enc_stream)
