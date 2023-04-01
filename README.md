@@ -179,6 +179,6 @@ WDSeC3yWedFxCg==
 "@ -private_key_passphrase 'Y3J5cHRfazMzcDNy'
 ```
 **Output**
-```ps1
+```
 I'm encrypting this message!
 ```
